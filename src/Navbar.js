@@ -1,5 +1,5 @@
 
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,7 +11,7 @@ import { withStyles } from "@material-ui/core/styles";
 import App from "./App";
 import styles from './styles/NavbarStyles';
 import { ThemeContext } from './context/ThemeContext';
-import { LanguageContext, withLanguageContext } from './context/LanguageContext';
+import { LanguageContext } from './context/LanguageContext';
 
 const content = {
   english: {
@@ -27,13 +27,10 @@ const content = {
     flag: "🇪🇸"
   }
 };
-class Navbar extends Component {
-  static contextType = ThemeContext;// this tells the class to look up and see if it's nested
-  //inside a ThemeProvider (the nearest one of it's nested inside more than one)
-  render() {
-    const { isDarkMode, toggleTheme } = this.context;
-    const {classes} = this.props;
-    const { language } = this.props.languageContext;
+function Navbar(props)  {
+    const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+    const {language} = useContext(LanguageContext);
+    const {classes} = props;
     const { search, flag } = content[language];
     return (
           <div className={classes.root}>
@@ -65,7 +62,6 @@ class Navbar extends Component {
           </AppBar>
         </div>
         );
-      }
   }
 
-export default withLanguageContext(withStyles(styles)(Navbar));
+export default withStyles(styles)(Navbar);

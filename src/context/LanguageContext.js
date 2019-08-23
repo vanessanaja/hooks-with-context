@@ -21,12 +21,3 @@ export class LanguageProvider extends Component {
     );
   }
 }
-
-//create higher order component with takes a component as an argument and its props
-//and returns that same component with all original props and injects in a prop comming
-//from a cotext consumer
-export const withLanguageContext = Component => props => (
-  <LanguageContext.Consumer>
-    {value => <Component languageContext={value} {...props} />}  
-  </LanguageContext.Consumer>
-);
